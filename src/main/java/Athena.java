@@ -26,7 +26,7 @@ public class Athena {
             } else if (input.equals("list")) {
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < itemCount; i++) {
-                    System.out.println((i + 1) + ". " + tasks[i].toString());
+                    System.out.println((i + 1) + ". " + tasks[i]);
                 }
             } else if (input.startsWith("mark ")) {
                 int index = Integer.parseInt(input.substring(5)) - 1;
@@ -37,9 +37,23 @@ public class Athena {
                 tasks[index].unmark();
                 System.out.println("OK, I've marked this task as not done yet:\n  " + tasks[index]);
             } else {
-                tasks[itemCount] = new Task(input);
-                itemCount++;
-                System.out.println("added: " + input);
+                Task newTask = null;
+                if (input.startsWith("todo ")) {
+                    newTask = new Todo(input.substring(5));
+                } else if (input.startsWith("deadline ")) {
+                    String[] parts = input.substring(9).split(" /by ");
+                    newTask = new Deadline(parts[0], parts[1]);
+                } else if (input.startsWith("event ")) {
+                    String[] parts = input.substring(6).split(" /from | /to ");
+                    newTask = new Event(parts[0], parts[1], parts[2]);
+                }
+
+                if (newTask != null) {
+                    tasks[itemCount++] = newTask;
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + newTask);
+                    System.out.println("Now you have " + itemCount + " tasks in the list.");
+                }
             }
                 System.out.println(line);
             }
