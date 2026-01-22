@@ -28,26 +28,28 @@ Nice! I've marked this task as done:
   [T][X] read book
 ________________________________________________________________
 ________________________________________________________________
-Nice! I've marked this task as done:
-  [E][X] project meeting (from: Mon 2pm to: 4pm)
+Noted. I've removed this task:
+  [D][ ] return book (by: Sunday)
+Now you have 2 tasks in the list.
 ________________________________________________________________
 ________________________________________________________________
 Here are the tasks in your list:
 1.[T][X] read book
-2.[D][ ] return book (by: Sunday)
-3.[E][X] project meeting (from: Mon 2pm to: 4pm)
+2.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 ________________________________________________________________
 ________________________________________________________________
 OK, I've marked this task as not done yet:
   [T][ ] read book
 ________________________________________________________________
 ________________________________________________________________
-Here are the tasks in your list:
-1.[T][ ] read book
-2.[D][ ] return book (by: Sunday)
-3.[E][X] project meeting (from: Mon 2pm to: 4pm)
+ ERROR: A 'todo' needs a description!
+________________________________________________________________
+________________________________________________________________
+ ERROR: I don't recognize that command. Try 'todo', 'deadline', 'event', 'list', 'mark', 'unmark' or 'delete'
+________________________________________________________________
+________________________________________________________________
+ ERROR: Cannot delete! Index 100 does not exist.
 ________________________________________________________________
 ________________________________________________________________
 Bye. Hope to see you again soon!
 ________________________________________________________________
-
