@@ -1,12 +1,18 @@
 import java.util.Scanner;
 import java.util.List;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Athena {
+    private static final String FILE_PATH = "./data/checklist.txt";
     public static void main(String[] args) {
         String name = "Athena";
         String line = "________________________________________________________________";
-        List<Task> tasks = new ArrayList<>();
+        List<Task> tasks = loadTasks();
+        //List<Task> tasks = new ArrayList<>();
         // greetings
         System.out.println(line);
         System.out.println("Hello! I'm " + name);
@@ -27,12 +33,58 @@ public class Athena {
             }
             try {
                 processCommand(input, tasks, line);
+                saveTasks(tasks);
             } catch (AthenaException e) {
                 System.out.println(" ERROR: " + e.getMessage() + "\n" + line);
             }
         }
         scanner.close();
     }
+
+    private static void saveTasks(List<Task> tasks) {
+        try {
+            File f = new File(FILE_PATH);
+            if (!f.getParentFile().exists()) {
+                f.getParentFile().mkdirs(); // Create "data" directory if missing
+            }
+            FileWriter fw = new FileWriter(FILE_PATH);
+            for (Task t : tasks) {
+                fw.write(t.toFileFormat() + System.lineSeparator());
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Error saving tasks: " + e.getMessage());
+        }
+    }
+
+    private static List<Task> loadTasks() {
+        List<Task> loadedTasks = new ArrayList<>();
+        File f = new File(FILE_PATH);
+        if (!f.exists()) return loadedTasks;
+
+        try {
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                String[] parts = s.nextLine().split(" \\| ");
+                Task task = null;
+                switch (parts[0]) {
+                    case "T": task = new Todo(parts[2]); break;
+                    case "D": task = new Deadline(parts[2], parts[3]); break;
+                    case "E": task = new Event(parts[2], parts[3], parts[4]); break;
+                }
+                if (task != null) {
+                    if (parts[1].equals("1")) task.markAsDone();
+                    loadedTasks.add(task);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("No existing data found.");
+        }
+        return loadedTasks;
+    }
+
+
+    
 
     public static void processCommand(String input, List<Task> tasks, String line) throws AthenaException {
         System.out.println(line);
@@ -79,11 +131,12 @@ public class Athena {
             handleDelete(input, tasks, line);
         } else {
             // If the command is not recognized
-            throw new AthenaException("I don't recognize that command. Try 'todo', 'deadline', 'event', 'list', 'mark', 'unmark' or 'delete'");
+            throw new AthenaException(
+                    "I don't recognize that command. Try 'todo', 'deadline', 'event', 'list', 'mark', 'unmark' or 'delete'");
         }
         System.out.println(line);
     }
-    
+
     // helper functions for marking, deleting and printing
     public static void handleMarkStatus(String input, List<Task> tasks, String line, boolean isMark)
             throws AthenaException {
