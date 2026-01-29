@@ -1,13 +1,72 @@
-import java.util.Scanner;
-import java.util.List;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-
 public class Athena {
-    private static final String FILE_PATH = "./data/checklist.txt";
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    public Athena (String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (AthenaException e) {
+            ui.showError(e.getMessage());
+            tasks = new TaskList(new java.util.ArrayList<>());
+        }
+    }
+
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                if (fullCommand.equals("bye")) {
+                    isExit = true;
+                } else {
+                    Parser.parse(fullCommand, tasks, ui, storage);
+                }
+            } catch (AthenaException e) {
+                ui.showLine();
+                ui.showError(e.getMessage());
+                ui.showLine();
+            }
+        }
+        ui.showMessage("Bye. Hope to see you again soon!");
+    }
+
+    public static void main(String[] args) {
+        new Athena("./data/checklist.txt").run();
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /*private static final String FILE_PATH = "./data/checklist.txt";
 
     public static void main(String[] args) {
         String name = "Athena";
@@ -203,4 +262,5 @@ public class Athena {
         System.out.println("Now you have " + size + " tasks in the list.");
         System.out.println(line);
     }
+        */
 }

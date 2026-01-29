@@ -4,6 +4,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
+    // rawBy stores the original input (e.g., "2026-01-29 2359") for file storage
     protected String rawBy;
     
     // displayBy stores the formatted version (e.g., "Jan 29 2026, 11:59 PM") for the user
@@ -48,60 +49,4 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + displayBy + ")";
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    /*protected LocalDate dateBy;
-    protected String stringBy;
-
-    public Deadline(String description, String by) {
-        super(description);
-        try {
-            this.dateBy = LocalDate.parse(by);
-            this.stringBy = null;
-        } catch (DateTimeParseException e) {
-            this.dateBy = null;
-            this.stringBy = by; // Store as old-style string
-        }
-    }
-
-    @Override
-    public String toFileFormat() {
-        String time = (dateBy != null) ? dateBy.toString() : stringBy;
-        return "D | " + (isDone ? "X" : "0") + " | " + description + " | " + time;
-    }
-
-    @Override
-    public String toString() {
-        String displayTime = (dateBy != null) 
-            ? dateBy.format(DateTimeFormatter.ofPattern("MMM d yyyy")) 
-            : stringBy;
-        return "[D]" + super.toString() + " (by: " + displayTime + ")";
-    }
-        */
 }
