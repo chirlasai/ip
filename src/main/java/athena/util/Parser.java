@@ -60,6 +60,10 @@ public class Parser {
             handleEvent(words, tasks, ui, storage);
             break;
 
+        case "find":
+            handleFind(words, tasks, ui);
+            break;
+
         default:
             throw new AthenaException("I'm sorry, but I don't know what that means."
                     + "Try using 'todo', 'event', 'deadline', 'mark', 'unmark', 'delete' or 'list'"
@@ -209,6 +213,23 @@ public class Parser {
         } catch (Exception e) {
             throw new AthenaException("Cannot delete! Task does not exist.");
         }
+    }
+
+    /**
+     * Processes the 'find' command to search for tasks by keyword.
+     *
+     * @param words The split input containing the command and keyword.
+     * @param tasks The full TaskList to search within.
+     * @param ui    The UI to display the search results.
+     * @throws AthenaException If no keyword is provided for the search.
+     */
+    private static void handleFind(String[] words, TaskList tasks, Ui ui) throws AthenaException {
+        if (words.length < 2 || words[1].trim().isEmpty()) {
+            throw new AthenaException("The search keyword cannot be empty.");
+        }
+        String keyword = words[1].trim();
+        TaskList results = tasks.findTasks(keyword);
+        ui.showFoundTasks(results);
     }
 
     /**
