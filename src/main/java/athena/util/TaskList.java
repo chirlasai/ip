@@ -1,7 +1,9 @@
 package athena.util;
 
 import java.util.List;
-import athena.task.*;
+
+import athena.task.Task;
+
 
 public class TaskList {
     private final List<Task> tasks;

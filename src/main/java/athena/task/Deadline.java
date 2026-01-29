@@ -8,11 +8,11 @@ import java.time.format.DateTimeParseException;
 public class Deadline extends Task {
     // rawBy stores the original input (e.g., "2026-01-29 2359") for file storage
     protected String rawBy;
-    
+
     // displayBy stores the formatted version (e.g., "Jan 29 2026, 11:59 PM") for the user
     protected String displayBy;
 
-    private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private static final  DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a");
 
     public Deadline(String description, String by) {

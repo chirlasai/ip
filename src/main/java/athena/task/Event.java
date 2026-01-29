@@ -9,7 +9,6 @@ public class Event extends Task {
     // rawFrom/rawTo store the exact string the user typed (e.g., "2026-01-29 1400")
     protected String rawFrom;
     protected String rawTo;
-    
     // displayFrom/displayTo store the "pretty" version (e.g., "Jan 29 2026, 2:00 PM")
     protected String displayFrom;
     protected String displayTo;
@@ -21,7 +20,6 @@ public class Event extends Task {
         super(description);
         this.rawFrom = from;
         this.rawTo = to;
-        
         // Parse the strings into pretty display formats
         this.displayFrom = parseFlexible(from);
         this.displayTo = parseFlexible(to);

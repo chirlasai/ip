@@ -1,4 +1,11 @@
-import athena.util.*;
+package athena.main;
+
+import
+        athena.util.AthenaException;
+import athena.util.Parser;
+import athena.util.Storage;
+import athena.util.TaskList;
+import athena.util.Ui;
 
 public class Athena {
     private Storage storage;

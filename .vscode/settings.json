@@ -1,7 +1,0 @@
- {
-   "java.checkstyle.configuration": "$C:/Users/chirl/IP/config/checkstyle/checkstyle.xml",
-   "java.checkstyle.properties": {
-     "config_loc": "$C:/Users/chirl/IP/config/checkstyle"
-  },
-  "workbench.colorTheme": "Default Dark Modern"
- }
