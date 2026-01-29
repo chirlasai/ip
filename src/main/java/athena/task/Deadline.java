@@ -5,6 +5,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a task with a deadline.
+ * A DeadLine object contains a description and a date/time string
+ * representing when the task must be completed.
+ */
 public class Deadline extends Task {
     // rawBy stores the original input (e.g., "2026-01-29 2359") for file storage
     protected String rawBy;
@@ -12,9 +17,14 @@ public class Deadline extends Task {
     // displayBy stores the formatted version (e.g., "Jan 29 2026, 11:59 PM") for the user
     protected String displayBy;
 
-    private static final  DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a");
 
+    /**
+     * Constructs a DeadLine task with a description and deadline time.
+     * @param description The description of the task.
+     * @param by The due date or time for the task, supporting multiple formats.
+     */
     public Deadline(String description, String by) {
         super(description);
         this.rawBy = by;
@@ -22,7 +32,15 @@ public class Deadline extends Task {
     }
 
     /**
-     * Attempts to parse the string into a pretty date/time format.
+     * Parses the input string into a human-readable date-time format.
+     * This method attempts to process the input through a three-level fallback system:
+     * 1. Attempt to parse as a full date and time (yyyy-MM-dd HHmm).
+     * 2. Attempt to parse as a date only (yyyy-MM-dd).
+     * 3. Fall back to the original input string if no date format matches.
+     *
+     * @param input The raw time/date string provided by the user.
+     * @return A formatted string (e.g., "Jan 29 2026, 7:00 PM" or "Jan 29 2026")
+     * if parsing succeeds, or the original input string if it fails.
      */
     private String parseFlexible(String input) {
         try {
