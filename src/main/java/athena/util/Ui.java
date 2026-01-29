@@ -1,3 +1,5 @@
+package athena.util;
+
 import java.util.Scanner;
 
 public class Ui {

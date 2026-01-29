@@ -45,10 +45,10 @@ ________________________________________________________________
  ERROR: A 'todo' needs a description!
 ________________________________________________________________
 ________________________________________________________________
- ERROR: I don't recognize that command. Try 'todo', 'deadline', 'event', 'list', 'mark', 'unmark' or 'delete'
+ ERROR: I'm sorry, but I don't know what that means. Try using 'todo', 'event', 'deadline', 'mark', 'unmark', 'delete' or 'list'
 ________________________________________________________________
 ________________________________________________________________
- ERROR: Cannot delete! Index 100 does not exist.
+ ERROR: Cannot delete! Task does not exist.
 ________________________________________________________________
 ________________________________________________________________
 Bye. Hope to see you again soon!
