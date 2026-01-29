@@ -14,6 +14,12 @@ import athena.task.Task;
 import athena.task.Todo;
 
 
+/**
+ * Handles the loading and saving of task data to a local file.
+ * The Storage class manages all interactions with the physical database file,
+ * including creating directories/files if they do not exist and serializing
+ * Task objects into a machine-readable format.
+ */
 public class Storage {
     private final String filePath;
 
