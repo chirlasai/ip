@@ -2,6 +2,12 @@ package athena.util;
 
 import java.util.Scanner;
 
+/**
+ * Handles all interactions with the user.
+ * The Ui class is responsible for displaying messages to the user
+ * and reading their input. It manages the formatting of the chatbot's
+ * responses, including the display of welcome and farewell messages.
+ */
 public class Ui {
     private final String line = "________________________________________________________________";
     private final Scanner scanner = new Scanner(System.in);

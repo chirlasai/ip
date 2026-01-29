@@ -7,11 +7,18 @@ import athena.util.Storage;
 import athena.util.TaskList;
 import athena.util.Ui;
 
+/**
+ * Main class of chatbot.
+ */
 public class Athena {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * constructor for Athena class.
+     * @param filePath address of where data is stored
+     */
     public Athena (String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -23,6 +30,9 @@ public class Athena {
         }
     }
 
+    /**
+     * Runs the main program loop of the chatbot.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;

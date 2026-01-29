@@ -5,6 +5,12 @@ import athena.task.Event;
 import athena.task.Task;
 import athena.task.Todo;
 
+/**
+ * Handles the interpretation of user input commands.
+ * The Parser class contains logic to split user input strings,
+ * identify the intended command, and execute the corresponding actions
+ * on the task list.
+ */
 public class Parser {
 
     /**
@@ -61,6 +67,19 @@ public class Parser {
         }
     }
 
+    /**
+     * Processes the 'mark' and 'unmark' commands to change a task's completion status.
+     * This method validates that a task number is provided and that it falls
+     * within the valid range of the current task list. Upon a successful status
+     * change, it triggers a UI confirmation and saves the updated list to storage.
+     *
+     * @param words   The split user input containing the command and the task index.
+     * @param tasks   The list of tasks to be modified.
+     * @param ui      The user interface for displaying success or error messages.
+     * @param storage The storage handler to persist the status change.
+     * @param isMark  True if the task should be marked as done, false if it should be unmarked.
+     * @throws AthenaException If the task index is missing, not a number, or out of bounds.
+     */
     private static void handleMarkStatus(String[] words, TaskList tasks, Ui ui, Storage storage, boolean isMark)
             throws AthenaException {
         if (words.length < 2) {
@@ -90,6 +109,15 @@ public class Parser {
 
     }
 
+    /**
+     * Validates and processes a todo command.
+     *
+     * @param words   The split input containing the command and description.
+     * @param tasks   The list to which the new task will be added.
+     * @param ui      The UI to confirm the addition to the user.
+     * @param storage The storage to persist the new task.
+     * @throws AthenaException If the description is empty.
+     */
     private static void handleTodo(String[] words, TaskList tasks, Ui ui, Storage storage) throws AthenaException {
         if (words.length < 2 || words[1].trim().isEmpty()) {
             throw new AthenaException("The description of a todo task cannot be empty.");
@@ -100,6 +128,20 @@ public class Parser {
         storage.save(tasks);
     }
 
+    /**
+     * Validates the input and adds a new deadline task to the list.
+     * This method splits the user input using the "/by" delimiter to separate
+     * the task description from the deadline time. It ensures both parts are
+     * present before creating the task, adding it to the list, and triggering
+     * a save to storage.
+     *
+     * @param words   The array containing the split user input (command and arguments).
+     * @param tasks   The TaskList to which the new deadline will be added.
+     * @param ui      The Ui object for providing feedback to the user.
+     * @param storage The Storage object to persist the new task.
+     * @throws AthenaException If the description is empty or if the "/by" delimiter
+     * is missing from the input.
+     */
     private static void handleDeadline(String[] words, TaskList tasks, Ui ui, Storage storage) throws AthenaException {
         if (words.length < 2 || !words[1].contains(" /by ")) {
             throw new AthenaException("Invalid deadline format. "
@@ -112,6 +154,20 @@ public class Parser {
         storage.save(tasks);
     }
 
+    /**
+     * Validates the input and adds a new event task to the list.
+     * This method uses multiple delimiters ("/from" and "/to") to extract the
+     * task description, start time, and end time. It ensures all three components
+     * are present and non-empty before creating the Event object and
+     * updating the storage.
+     *
+     * @param words   The array containing the split user input (command and arguments).
+     * @param tasks   The TaskList to which the new event will be added.
+     * @param ui      The Ui object for providing feedback to the user.
+     * @param storage The Storage object to persist the new task.
+     * @throws AthenaException If any of the required parts (description, /from, or /to)
+     * are missing or incorrectly formatted.
+     */
     private static void handleEvent(String[] words, TaskList tasks, Ui ui, Storage storage) throws AthenaException {
         if (words.length < 2 || !words[1].contains(" /from ") || !words[1].contains(" /to ")) {
             throw new AthenaException("Events need a description and a timeline. "
@@ -125,6 +181,19 @@ public class Parser {
         storage.save(tasks);
     }
 
+    /**
+     * Validates the task index and removes the specified task from the list.
+     * This method converts the user-provided index into a zero-based integer.
+     * It ensures the index is within the valid range of the current task list
+     * before deleting the task and updating the persistent storage.
+     *
+     * @param words   The array containing the split user input (command and index).
+     * @param tasks   The TaskList from which the task will be removed.
+     * @param ui      The Ui object for providing feedback to the user.
+     * @param storage The Storage object to save changes after deletion.
+     * @throws AthenaException If the task index is missing, not a valid number,
+     * or points to a non-existent task.
+     */
     private static void handleDelete(String[] words, TaskList tasks, Ui ui, Storage storage) throws AthenaException {
         if (words.length < 2) {
             throw new AthenaException("Please specify a task number to delete.");
@@ -142,6 +211,16 @@ public class Parser {
         }
     }
 
+    /**
+     * Displays a confirmation message to the user after a task is added.
+     * This helper method uses the provided Ui object to print a standardized
+     * success message, show the task that was just added, and report the new
+     * total number of tasks in the TaskList.
+     *
+     * @param t     The Task that has been successfully added.
+     * @param tasks The TaskList used to retrieve the current total count.
+     * @param ui    The Ui object responsible for formatting and printing the output.
+     */
     private static void showAddition(Task t, TaskList tasks, Ui ui) {
         ui.showLine();
         ui.showMessage("Got it. I've added this task:\n  " + t);

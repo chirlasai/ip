@@ -13,7 +13,12 @@ import athena.task.Event;
 import athena.task.Task;
 import athena.task.Todo;
 
-
+/**
+ * Handles the loading and saving of task data to a local file.
+ * The Storage class manages all interactions with the physical database file,
+ * including creating directories/files if they do not exist and serializing
+ * Task objects into a machine-readable format.
+ */
 public class Storage {
     private final String filePath;
 
@@ -21,6 +26,15 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the hard drive and returns them as an ArrayList.
+     * This method reads the file line by line, identifies the task type (Todo, Deadline, or Event),
+     * and reconstructs the task objects. If the file or directory is missing, it
+     * handles the initialization gracefully by returning an empty list.
+     *
+     * @return An ArrayList of tasks loaded from the file.
+     * @throws AthenaException If there is an error reading the file or parsing the task data.
+     */
     public List<Task> load() throws AthenaException {
         List<Task> loadedTasks = new ArrayList<>();
         File f = new File(filePath);
@@ -45,6 +59,18 @@ public class Storage {
         return loadedTasks;
     }
 
+    /**
+     * Parses an array of strings representing a task's data into a specific Task object.
+     * This method uses a switch statement on the first element of the array to determine
+     * the task type:
+     * "T" - Creates a Todo using the description at index 2.
+     * "D" - Creates a Deadline using the description at index 2 and date at index 3.
+     * "E" - Creates an {@link Event} using the description at index 2,
+     * start time at index 3, and end time at index 5
+     *
+     * @param parts An array of strings containing the split data from a storage file line.
+     * @return The reconstructed Task object, or null if the task type is unrecognized.
+     */
     private Task parseFileLine(String[] parts) {
         switch (parts[0]) {
         case "T": return new Todo(parts[2]);
@@ -54,6 +80,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the current task list to the hard drive.
+     * This method overwrites the existing file with the current state of the
+     * TaskList. Each task is converted into its storage-friendly string
+     * format via the toFileFormat() method.
+     *
+     * @param tasks The list of tasks to be persisted to disk.
+     */
     public void save(TaskList tasks) {
         try {
             File f = new File(filePath);

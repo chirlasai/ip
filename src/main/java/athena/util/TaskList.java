@@ -5,6 +5,12 @@ import java.util.List;
 import athena.task.Task;
 
 
+/**
+ * Manages the collection of tasks in the chatbot.
+ * The TaskList class provides methods to add, delete, and retrieve tasks.
+ * It acts as a wrapper around an ArrayList, abstracting the underlying
+ * list operations from the rest of the application.
+ */
 public class TaskList {
     private final List<Task> tasks;
 

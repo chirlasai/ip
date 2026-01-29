@@ -37,6 +37,7 @@ application {
 }
 
 shadowJar {
+    archiveFileName = 'athena.jar'
     archiveBaseName = "athena"
     archiveClassifier = null
 }
