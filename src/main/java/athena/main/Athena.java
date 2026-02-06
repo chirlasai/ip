@@ -1,7 +1,6 @@
 package athena.main;
 
-import
-        athena.util.AthenaException;
+import athena.util.AthenaException;
 import athena.util.Parser;
 import athena.util.Storage;
 import athena.util.TaskList;
@@ -19,7 +18,7 @@ public class Athena {
      * constructor for Athena class.
      * @param filePath address of where data is stored
      */
-    public Athena (String filePath) {
+    public Athena(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -31,29 +30,16 @@ public class Athena {
     }
 
     /**
-     * Runs the main program loop of the chatbot.
+     * New method for JavaFX to call.
      */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                if (fullCommand.equals("bye")) {
-                    isExit = true;
-                } else {
-                    Parser.parse(fullCommand, tasks, ui, storage);
-                }
-            } catch (AthenaException e) {
-                ui.showLine();
-                ui.showError(e.getMessage());
-                ui.showLine();
+    public String getResponse(String input) {
+        try {
+            if (input.equalsIgnoreCase("bye")) {
+                return "Bye. Hope to see you again soon!";
             }
+            return Parser.parse(input, tasks, ui, storage);
+        } catch (AthenaException e) {
+            return "ERROR: " + e.getMessage();
         }
-        ui.showMessage("Bye. Hope to see you again soon!");
-    }
-
-    public static void main(String[] args) {
-        new Athena("./data/checklist.txt").run();
     }
 }

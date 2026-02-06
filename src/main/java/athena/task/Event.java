@@ -50,7 +50,7 @@ public class Event extends Task {
      *
      * @param input The raw input string provided by the user (e.g., "2026-01-29 1800" or "Monday").
      * @return A human-readable formatted date/time string (e.g., "Jan 29 2026, 6:00 PM")
-     * if parsing succeeds; otherwise, the original input string.
+     *         if parsing succeeds; otherwise, the original input string.
      */
     private String parseFlexible(String input) {
         try {
