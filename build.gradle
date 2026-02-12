@@ -45,6 +45,8 @@ test {
         showStackTraces true
         showStandardStreams = false
     }
+
+    enableAssertions = true
 }
 
 application {
@@ -59,4 +61,5 @@ shadowJar {
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }
