@@ -62,7 +62,7 @@ public class Deadline extends Task {
     @Override
     public String toFileFormat() {
         // Saves the raw input so the bot can re-process it when reloading
-        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + rawBy;
+        return "D | " + (isDone ? "X" : "0") + " | " + description + " | " + rawBy;
     }
 
     @Override

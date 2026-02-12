@@ -72,7 +72,7 @@ public class Event extends Task {
     @Override
     public String toFileFormat() {
         // Saves raw input so the bot can re-run parsing logic on restart
-        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + rawFrom + " | " + rawTo;
+        return "E | " + (isDone ? "X" : "0") + " | " + description + " | " + rawFrom + " | " + rawTo;
     }
 
     @Override
