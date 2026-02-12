@@ -59,7 +59,8 @@ public class Parser {
             return handleFind(words, tasks, ui);
 
         default:
-            throw new AthenaException("I'm sorry, but I don't know what that means.");
+            throw new AthenaException("I'm sorry, but I don't know what that means. Use 'list', 'todo', 'deadline', "
+                    + "'mark', 'unmark', 'delete', 'event' or 'find' keywords");
         }
     }
 

@@ -1,5 +1,6 @@
 package athena.main;
 
+import athena.util.Ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,7 +9,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-import athena.util.Ui;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -34,6 +34,7 @@ public class MainWindow extends AnchorPane {
     }
 
     public void setAthena(Athena a) {
+        assert a != null : "The Athena instance passed to MainWindow should not be null";
         athena = a;
 
         dialogContainer.getChildren().addAll(
@@ -50,6 +51,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        assert athena != null : "Athena logic should be initialized before handling user input";
         String response = athena.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
