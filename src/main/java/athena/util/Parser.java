@@ -31,11 +31,7 @@ public class Parser {
 
         switch (command) {
         case "list":
-            StringBuilder sb = new StringBuilder("Here are the tasks in your list:\n");
-            for (int i = 0; i < tasks.size(); i++) {
-                sb.append((i + 1)).append(".").append(tasks.getTask(i)).append("\n");
-            }
-            return sb.toString();
+            return handleList(tasks);
 
         case "todo":
             return handleTodo(words, tasks, ui, storage);
@@ -62,6 +58,27 @@ public class Parser {
             throw new AthenaException("I'm sorry, but I don't know what that means. Use 'list', 'todo', 'deadline', "
                     + "'mark', 'unmark', 'delete', 'event' or 'find' keywords");
         }
+    }
+
+    /**
+     * Formats and returns the full list of tasks.
+     * This method iterates through the current task list, prepending each task
+     * with its corresponding index, and compiles them into a single
+     * formatted string for display in the GUI.
+     *
+     * @param tasks The TaskList containing the tasks to be listed.
+     * @return A formatted string representing all tasks in the list,
+     *         or a message indicating the list is empty.
+     */
+    private static String handleList(TaskList tasks) {
+        if (tasks.size() == 0) {
+            return "Your task list is currently empty.";
+        }
+        StringBuilder sb = new StringBuilder("Here are the tasks in your list:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append((i + 1)).append(".").append(tasks.getTask(i)).append("\n");
+        }
+        return sb.toString().trim();
     }
 
     /**
