@@ -72,10 +72,16 @@ public class Storage {
      * @return The reconstructed Task object, or null if the task type is unrecognized.
      */
     private Task parseFileLine(String[] parts) {
+        assert parts != null : "The parts array from the storage file should not be null";
+        assert parts.length >= 3 : "A valid storage line must have at least 3 parts (type, status, description)";
         switch (parts[0]) {
         case "T": return new Todo(parts[2]);
-        case "D": return new Deadline(parts[2], parts[3]);
-        case "E": return new Event(parts[2], parts[3], parts[4]);
+        case "D":
+            assert parts.length >= 4 : "Deadline task must have a date/time part at index 3";
+            return new Deadline(parts[2], parts[3]);
+        case "E":
+            assert parts.length >= 5 : "Event task must have from/to parts at indices 3 and 4";
+            return new Event(parts[2], parts[3], parts[4]);
         default: return null;
         }
     }

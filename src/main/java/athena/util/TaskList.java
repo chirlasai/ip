@@ -24,10 +24,12 @@ public class TaskList {
     }
 
     public Task deleteTask(int index) {
+        assert index >= 0 && index < tasks.size() : "Attempted to delete task at invalid index: " + index;
         return tasks.remove(index);
     }
 
     public Task getTask(int index) {
+        assert index >= 0 && index < tasks.size() : "Attempted to access task at invalid index: " + index;
         return tasks.get(index);
     }
 
