@@ -254,4 +254,20 @@ public class Parser {
         }
         return sb.toString();
     }
+
+    /**
+     * Returns a string listing upcoming tasks for the next 3 days.
+     */
+    public static String handleReminders(TaskList tasks) {
+        TaskList upcoming = tasks.getReminders(7);
+        if (upcoming.size() == 0) {
+            return "You have no upcoming deadlines in the next week!";
+        }
+
+        StringBuilder sb = new StringBuilder("REMINDERS: You have these tasks coming up soon:\n");
+        for (int i = 0; i < upcoming.size(); i++) {
+            sb.append((i + 1)).append(".").append(upcoming.getTask(i)).append("\n");
+        }
+        return sb.toString().trim();
+    }
 }

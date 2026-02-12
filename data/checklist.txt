@@ -1,3 +1,2 @@
-T | 0 | read book
-E | 0 | function | 2026-02-11 1600 | 2026-02-11 2000
-D | X | finish homework | Sunday
+E | 0 | function | 2026-02-15 1600 | 2026-02-15 2000
+D | 0 | return book | 2026-02-17

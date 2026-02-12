@@ -17,6 +17,7 @@ public class Event extends Task {
     // displayFrom/displayTo store the "pretty" version (e.g., "Jan 29 2026, 2:00 PM")
     protected String displayFrom;
     protected String displayTo;
+    protected LocalDateTime startDateTime;
 
     private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a");
@@ -56,17 +57,28 @@ public class Event extends Task {
         try {
             // Level 1: Try Date + Time (yyyy-MM-dd HHmm)
             LocalDateTime dt = LocalDateTime.parse(input, INPUT_FORMAT);
+            this.startDateTime = dt;
             return dt.format(OUTPUT_FORMAT);
         } catch (DateTimeParseException e1) {
             try {
                 // Level 2: Try Date only (yyyy-MM-dd)
                 LocalDate d = LocalDate.parse(input);
-                return d.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+                this.startDateTime = d.atStartOfDay();
+                return d.format(DateTimeFormatter.ofPattern("MM dd yyyy"));
             } catch (DateTimeParseException e2) {
                 // Level 3: Fallback to plain string
+                this.startDateTime = null;
                 return input;
             }
         }
+    }
+
+    /**
+     * Retrieves the event's start date and time for comparison logic.
+     * @return The LocalDateTime representation, or null if parsing failed.
+     */
+    public LocalDateTime getFrom() {
+        return this.startDateTime;
     }
 
     @Override

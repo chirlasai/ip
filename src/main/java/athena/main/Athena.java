@@ -29,6 +29,12 @@ public class Athena {
         }
     }
 
+    public String getWelcomeMessage() {
+        String welcome = "Hello! I'm Athena.\nHow can I help you today?";
+        String reminders = Parser.handleReminders(this.tasks); // Static call to your new logic
+        return welcome + "\n\n" + reminders;
+    }
+
     /**
      * New method for JavaFX to call.
      */

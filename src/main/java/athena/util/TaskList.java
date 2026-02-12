@@ -80,4 +80,36 @@ public class TaskList {
         }
         return new TaskList(matchingTasks);
     }
+
+    /**
+     * Filters the list for tasks occurring within a specified number of days from now.
+     * This method checks Deadlines by their 'by' date and Events by their 'from' date.
+     * It uses assertions to ensure the time window is valid for internal logic.
+     * @param days The number of days ahead to look for reminders.
+     * @return A new TaskList containing tasks occurring soon.
+     */
+    public TaskList getReminders(int days) {
+        assert days >= 0 : "Reminder window cannot be negative"; // A-Assertions
+
+        java.time.LocalDateTime now = java.time.LocalDateTime.now();
+        java.time.LocalDateTime limit = now.plusDays(days);
+        java.util.ArrayList<Task> upcoming = new java.util.ArrayList<>();
+
+        for (athena.task.Task task : tasks) {
+            if (task instanceof athena.task.Deadline) {
+                athena.task.Deadline d = (athena.task.Deadline) task;
+                // Check if the deadline falls between now and the limit
+                if (d.getBy().isBefore(limit) && d.getBy().isAfter(now)) {
+                    upcoming.add(task);
+                }
+            } else if (task instanceof athena.task.Event) {
+                athena.task.Event e = (athena.task.Event) task;
+                // Events are relevant if their start time ('from') is approaching
+                if (e.getFrom().isBefore(limit) && e.getFrom().isAfter(now)) {
+                    upcoming.add(task);
+                }
+            }
+        }
+        return new TaskList(upcoming);
+    }
 }

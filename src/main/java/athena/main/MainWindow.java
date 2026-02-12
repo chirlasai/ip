@@ -1,6 +1,5 @@
 package athena.main;
 
-import athena.util.Ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -38,7 +37,7 @@ public class MainWindow extends AnchorPane {
         athena = a;
 
         dialogContainer.getChildren().addAll(
-                DialogBox.getAthenaDialog(Ui.getWelcomeMessage(), athenaImage)
+                DialogBox.getAthenaDialog(athena.getWelcomeMessage(), athenaImage)
         );
 
     }

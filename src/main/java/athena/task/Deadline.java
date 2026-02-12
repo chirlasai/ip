@@ -17,6 +17,9 @@ public class Deadline extends Task {
     // displayBy stores the formatted version (e.g., "Jan 29 2026, 11:59 PM") for the user
     protected String displayBy;
 
+    // Added field to store the parsed LocalDateTime object
+    protected LocalDateTime dateTimeBy;
+
     private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a");
 
@@ -46,17 +49,28 @@ public class Deadline extends Task {
         try {
             // Try Date + Time (yyyy-MM-dd HHmm)
             LocalDateTime dt = LocalDateTime.parse(input, INPUT_FORMAT);
+            this.dateTimeBy = dt;
             return dt.format(OUTPUT_FORMAT);
         } catch (DateTimeParseException e1) {
             try {
                 // Try Date only (yyyy-MM-dd)
                 LocalDate d = LocalDate.parse(input);
+                this.dateTimeBy = d.atStartOfDay();
                 return d.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
             } catch (DateTimeParseException e2) {
                 // Fallback to plain string (e.g., "tonight")
+                this.dateTimeBy = null;
                 return input;
             }
         }
+    }
+
+    /**
+     * Retrieves the deadline's date and time for comparison logic.
+     * @return The LocalDateTime representation, or null if it's a raw string.
+     */
+    public LocalDateTime getBy() {
+        return this.dateTimeBy;
     }
 
     @Override
