@@ -50,13 +50,13 @@ test {
 }
 
 application {
-    mainClass.set("athena.main.Athena")
+    mainClass.set("athena.main.Launcher")
 }
 
 shadowJar {
     archiveFileName = 'athena.jar'
-    archiveBaseName = "athena"
     archiveClassifier = null
+
 }
 
 run{
