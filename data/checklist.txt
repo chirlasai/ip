@@ -1,2 +1,4 @@
 E | 0 | exams | 2026-02-21 | 2026-02-23
-D | 0 | finish homwork | 2026-02-22
+T | 0 | read book
+E | 0 | function | 2026-02-24 | 2026-02-24
+D | 0 | finish homework | 2026-02-25
