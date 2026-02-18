@@ -47,31 +47,26 @@ public class Event extends Task {
      * This method attempts to parse the input in the following order:
      * Tries to parse as a date-time (yyyy-MM-dd HHmm).
      * If that fails, tries to parse as a date only (yyyy-MM-dd).
-     * If both fail, it returns the original input string as is.
      *
      * @param input The raw input string provided by the user (e.g., "2026-01-29 1800" or "Monday").
      * @return A human-readable formatted date/time string (e.g., "Jan 29 2026, 6:00 PM")
-     *         if parsing succeeds; otherwise, the original input string.
+     *         if parsing succeeds
      */
-    private String parseFlexible(String input) {
+    private String parseFlexible(String input) throws DateTimeParseException {
         try {
             // Level 1: Try Date + Time (yyyy-MM-dd HHmm)
             LocalDateTime dt = LocalDateTime.parse(input, INPUT_FORMAT);
             this.startDateTime = dt;
             return dt.format(OUTPUT_FORMAT);
         } catch (DateTimeParseException e1) {
-            try {
-                // Level 2: Try Date only (yyyy-MM-dd)
-                LocalDate d = LocalDate.parse(input);
-                this.startDateTime = d.atStartOfDay();
-                return d.format(DateTimeFormatter.ofPattern("MM dd yyyy"));
-            } catch (DateTimeParseException e2) {
-                // Level 3: Fallback to plain string
-                this.startDateTime = null;
-                return input;
-            }
+            // Level 2: Try Date only (yyyy-MM-dd)
+            LocalDate d = LocalDate.parse(input);
+            this.startDateTime = d.atStartOfDay();
+            return d.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
         }
     }
+
+
 
     /**
      * Retrieves the event's start date and time for comparison logic.

@@ -36,11 +36,18 @@ public class Athena {
     }
 
     /**
-     * New method for JavaFX to call.
+     * Processes the user's input and returns a response string from the chatbot.
+     * This method acts as the primary interface between the JavaFX GUI and the
+     * chatbot logic. It handles the termination command "bye" specifically and
+     * delegates all other command processing to the Parser.
+     *
+     * @param input The raw text input entered by the user in the GUI.
+     * @return A string representing the chatbot's response, including error messages
+     *         if an AthenaException occurs.
      */
     public String getResponse(String input) {
         try {
-            if (input.equalsIgnoreCase("bye")) {
+            if (input.equalsIgnoreCase("bye") || input.equalsIgnoreCase("Bye")) {
                 return "Bye. Hope to see you again soon!";
             }
             return Parser.parse(input, tasks, ui, storage);

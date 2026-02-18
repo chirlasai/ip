@@ -7,6 +7,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.util.Duration;
 
 
 /**
@@ -57,5 +60,12 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getAthenaDialog(response, athenaImage)
         );
         userInput.clear();
+
+        if (input.equalsIgnoreCase("bye") || input.equalsIgnoreCase("Bye") ) {
+            // Wait 1.5 seconds so the user can read the "Bye" message
+            PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
+            delay.setOnFinished(event -> Platform.exit());
+            delay.play();
+        }
     }
 }

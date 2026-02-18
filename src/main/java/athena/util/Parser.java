@@ -5,6 +5,9 @@ import athena.task.Event;
 import athena.task.Task;
 import athena.task.Todo;
 
+import java.time.format.DateTimeParseException;
+import java.util.List;
+
 /**
  * Handles the interpretation of user input commands.
  * The Parser class contains logic to split user input strings,
@@ -160,13 +163,18 @@ public class Parser {
     private static String handleDeadline(String[] words, TaskList tasks, Ui ui, Storage storage)
             throws AthenaException {
         if (words.length < 2 || !words[1].contains(" /by ")) {
-            throw new AthenaException("Invalid deadline format. Please use: deadline [desc] /by [time]");
+            throw new AthenaException("Invalid deadline format. Please use: deadline [desc] /by [yyyy-MM-dd HHmm]");
         }
         String[] parts = words[1].split(" /by ");
-        Task t = new Deadline(parts[0].trim(), parts[1].trim());
-        tasks.addTask(t);
-        storage.save(tasks);
-        return "Got it. I've added this task:\n  " + t + "\nNow you have " + tasks.size() + " tasks in the list.";
+        try {
+            Task t = new Deadline(parts[0].trim(), parts[1].trim());
+            tasks.addTask(t);
+            storage.save(tasks);
+            return "Got it. I've added this task:\n  " + t + "\nNow you have " + tasks.size() + " tasks in the list.";
+        } catch (DateTimeParseException e) {
+            throw new AthenaException("Invalid date! Use yyyy-MM-dd HHmm (e.g., 2026-02-18 1800) or yyyy-MM-dd.");
+        }
+
     }
 
     /**
@@ -186,14 +194,20 @@ public class Parser {
      */
     private static String handleEvent(String[] words, TaskList tasks, Ui ui, Storage storage) throws AthenaException {
         if (words.length < 2 || !words[1].contains(" /from ") || !words[1].contains(" /to ")) {
-            throw new AthenaException("Invalid event format. Please use: event [desc] /from [start] /to [end]");
+            throw new AthenaException("Invalid event format. Please use: event [desc] /from [yyyy-MM-dd HHmm] /to [yyyy-MM-dd HHmm]");
         }
         String[] parts = words[1].split(" /from | /to ");
-        Task t = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
-        tasks.addTask(t);
-        storage.save(tasks);
-        return "Got it. I've added this task:\n  " + t + "\nNow you have " + tasks.size() + " tasks in the list.";
+        try {
+            Task t = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
+            tasks.addTask(t);
+            storage.save(tasks);
+            return "Got it. I've added this task:\n  " + t + "\nNow you have " + tasks.size() + " tasks in the list.";
+        } catch (DateTimeParseException e) {
+            throw new AthenaException("Invalid date! Use yyyy-MM-dd HHmm (e.g., 2026-02-18 1800) or yyyy-MM-dd.");
+        }
     }
+
+
 
     /**
      * Validates the task index and removes the specified task, returning a confirmation message.
@@ -242,15 +256,15 @@ public class Parser {
             throw new AthenaException("The search keyword cannot be empty.");
         }
         String keyword = words[1].trim();
-        TaskList results = tasks.findTasks(keyword);
+        List<Integer> results = tasks.findTasks(keyword);
 
-        if (results.size() == 0) {
+        if (results.isEmpty()) {
             return "No matching tasks found in your list.";
         }
 
         StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
-        for (int i = 0; i < results.size(); i++) {
-            sb.append((i + 1)).append(".").append(results.getTask(i)).append("\n");
+        for (int index: results) {
+            sb.append((index + 1)).append(".").append(tasks.getTask(index)).append("\n");
         }
         return sb.toString();
     }

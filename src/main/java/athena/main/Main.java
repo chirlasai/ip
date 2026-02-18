@@ -22,7 +22,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setAthena(athena);  // inject the Athena instance
+            fxmlLoader.<MainWindow>getController().setAthena(athena);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

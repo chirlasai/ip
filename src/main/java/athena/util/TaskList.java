@@ -71,14 +71,14 @@ public class TaskList {
      * @param keyword The string to search for.
      * @return A new TaskList containing the matching tasks.
      */
-    public TaskList findTasks(String keyword) {
-        ArrayList<Task> matchingTasks = new ArrayList<>();
-        for (Task task : tasks) {
-            if (task.toString().contains(keyword)) {
-                matchingTasks.add(task);
+    public List findTasks(String keyword) {
+        List<Integer> matchingIndices = new ArrayList<>();
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).toString().contains(keyword)) {
+                matchingIndices.add(i);
             }
         }
-        return new TaskList(matchingTasks);
+        return matchingIndices;
     }
 
     /**

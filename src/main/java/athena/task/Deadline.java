@@ -30,7 +30,6 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) {
         super(description);
-        this.rawBy = by;
         this.displayBy = parseFlexible(by);
     }
 
@@ -39,29 +38,22 @@ public class Deadline extends Task {
      * This method attempts to process the input through a three-level fallback system:
      * 1. Attempt to parse as a full date and time (yyyy-MM-dd HHmm).
      * 2. Attempt to parse as a date only (yyyy-MM-dd).
-     * 3. Fall back to the original input string if no date format matches.
      *
-     * @param input The raw time/date string provided by the user.
+     * @param input The date string provided by the user.
      * @return A formatted string (e.g., "Jan 29 2026, 7:00 PM" or "Jan 29 2026")
-     *         if parsing succeeds, or the original input string if it fails.
+     *         if parsing succeeds
      */
-    private String parseFlexible(String input) {
+    private String parseFlexible(String input) throws DateTimeParseException {
         try {
             // Try Date + Time (yyyy-MM-dd HHmm)
             LocalDateTime dt = LocalDateTime.parse(input, INPUT_FORMAT);
             this.dateTimeBy = dt;
             return dt.format(OUTPUT_FORMAT);
         } catch (DateTimeParseException e1) {
-            try {
-                // Try Date only (yyyy-MM-dd)
-                LocalDate d = LocalDate.parse(input);
-                this.dateTimeBy = d.atStartOfDay();
-                return d.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-            } catch (DateTimeParseException e2) {
-                // Fallback to plain string (e.g., "tonight")
-                this.dateTimeBy = null;
-                return input;
-            }
+            // Try Date only (yyyy-MM-dd)
+            LocalDate d = LocalDate.parse(input);
+            this.dateTimeBy = d.atStartOfDay();
+            return d.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         }
     }
 

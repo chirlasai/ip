@@ -2,7 +2,7 @@ package athena.util;
 
 
 /**
- * Handles the welcome message and error messages
+ * Handles the error messages
  */
 public class Ui {
     public void showError(String message) {
