@@ -81,6 +81,7 @@ No input is required for this. Reminders for tasks due or occuring in the next 7
 | Delete task | ```delete [INDEX]``` | ```delete 2``` |
 | Exit | ```Bye``` or ```bye ``` |  -  |
 
+
 ## Formats of dates accepted
 - ```yyyy-MM-dd HHmm```
 - ```yyyy-MM-dd```
