@@ -69,17 +69,17 @@ No input is required for this. Reminders for tasks due or occuring in the next 7
 
 
 ## Command Summary
-| **Command** | **Format** | **Example** |
-| ----------- | ---------- | ----------- |
-| Add Todo task | ```todo [DESCRIPTION]```| ```todo read book``` |
+| **Command** | **Format** | **Example**  |
+| ----------- | ---------- | -----------  |
+| Add Todo task | ```todo [DESCRIPTION]``` | ```todo read book``` |
 | Add Event task   | ```event [DESCRIPTION] /from [DATE] [TIME](optional) /to [DATE] [TIME](optional)``` | ```event project meeting /from 2026-02-25 2100 /to 2026-02-25 2200``` |
 | Add deadline task | ```deadline [DESCRIPTION] /by [DATE] [TIME](optional)``` | ```deadline return book /by 2026-02-24``` |
-| List tasks | ```list``` | - |
+| List tasks | ```list``` |  -  |
 | Mark task | ```mark [INDEX]``` | ```mark 1``` |
 | Unmark task | ```unmark [INDEX]``` | ```unmark 1``` |
 | Find task | ```find [KEYWORD]``` | ```find book``` |
 | Delete task | ```delete [INDEX]``` | ```delete 2``` |
-| Exit | ```Bye``` or ```bye ``` | - |
+| Exit | ```Bye``` or ```bye ``` |  -  |
 
 ## Formats of dates accepted
 - ```yyyy-MM-dd HHmm```
