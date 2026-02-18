@@ -68,6 +68,7 @@ No input is required for this. Reminders for tasks due or occuring in the next 7
 ```Bye``` or ```bye``` inputs will close the app. Alternatively closing the window manually also works.
 
 
+
 ## Command Summary
 | **Command** | **Format** | **Example**  |
 | ----------- | ---------- | -----------  |
@@ -80,6 +81,7 @@ No input is required for this. Reminders for tasks due or occuring in the next 7
 | Find task | ```find [KEYWORD]``` | ```find book``` |
 | Delete task | ```delete [INDEX]``` | ```delete 2``` |
 | Exit | ```Bye``` or ```bye ``` |  -  |
+
 
 
 ## Formats of dates accepted
