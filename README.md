@@ -1,26 +1,102 @@
-# Duke project template
+# Athena User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Athena is a task management taskbot that helps users keep track of todos, deadlines and event type tasks. It is named after the greek goddess of wisdom, Athena.
 
-## Setting up in Intellij
+<img width="300" height="500" alt="Screenshot 2026-02-18 145922" src="https://github.com/user-attachments/assets/e95ee645-dd9a-4089-9e0a-44e6ea711aae" />
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+## Features
+- **Todo tasks:** Simple tasks that have no deadline or timeframe
+- **Event tasks:** Tasks with a start and end time
+- **Deadline tasks:** Tasks with a deadline
+- **Mark/Unmark:** Tracks status of tasks
+- **Delete:** Deletes task from the chatbot
+- **Find:** Search for a task using a keyword
+- **Reminders:** Reminders for tasks appear on launch of app
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+## Usage
+Type commands in the input box at the bottom of the window and press enter or click send
+
+### Adding tasks
+
+**Todo:**
+
+```
+todo read book
+```
+
+**Deadline:**
+
+```
+deadline return book /by 2026-02-25 2359
+```
+
+**Note:** Time input is optional
+
+**Event:**
+
+```
+event project meeting /from 2026-02-25 2100 /to 2026-02-25 2200
+```
+
+**Note:** Time input is optional
+
+### Managing Tasks
+**List:**
+
+```
+list
+```
+
+**Mark:**
+
+```
+mark 1
+```
+
+**Unmark:**
+
+```
+unmark 1
+```
+
+**Find:**
+
+```
+Find book
+```
+
+**Delete:**
+
+```
+Delete 3
+```
+
+
+### Other features
+
+**Reminders:**
+
+No input is required for this. Reminders for tasks due or occuring in the next 7 days appear when app is launched.
+
+### Closing the app
+
+```Bye``` or ```bye``` inputs will close the app. Alternatively closing the window manually also works.
+
+## Command Summary
+
+| **Command** | **Format** | **Example**  |
+|-------------|------------|--------------|
+| Add Todo task | `todo [DESCRIPTION]` | `todo read book` |
+| Add Event task   | `event [DESCRIPTION] /from [DATE] [TIME](optional) /to [DATE] [TIME](optional)` | `event project meeting /from 2026-02-25 2100 /to 2026-02-25 2200` |
+| Add deadline task | `deadline [DESCRIPTION] /by [DATE] [TIME](optional)` | `deadline return book /by 2026-02-24` |
+| List tasks | `list` |  -  |
+| Mark task | `mark [INDEX]` | `mark 1` |
+| Unmark task | `unmark [INDEX]` | `unmark 1` |
+| Find task | `find [KEYWORD]` | `find book` |
+| Delete task | `delete [INDEX]` | `delete 2` |
+| Exit | `Bye` or `bye ` |  -  |
+
+## Formats of dates accepted
+- ```yyyy-MM-dd HHmm```
+- ```yyyy-MM-dd```
